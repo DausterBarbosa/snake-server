@@ -46,4 +46,4 @@ socket.on("connection", conected => {
     });
 });
 
-server.listen(process.evn.PORT || 3000);
+server.listen(process.env.PORT || 3000);
