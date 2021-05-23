@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
@@ -7,7 +9,7 @@ const app = express();
 app.use(cors());
 
 app.get("/", (req, res) => {
-    return res.send("adfasdf");
+    return res.send("asdfasdf");
 })
 
 const server = http.createServer(app);
