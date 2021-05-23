@@ -5,7 +5,8 @@ const app = express();
 const server = http.createServer(app);
 const socket = io(server, {
     cors: {
-        origin: "*"
+        origin: "*",
+        methods: ["GET", "POST"]
     }
 });
 
