@@ -5,7 +5,7 @@ const app = express();
 const server = http.createServer(app);
 const socket = io(server, {
     cors: {
-        origin: "https://dausterbarbosa.github.io/snake-web/"
+        origin: "*"
     }
 });
 
