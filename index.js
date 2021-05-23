@@ -6,6 +6,10 @@ const app = express();
 
 app.use(cors());
 
+app.get("/", (req, res) => {
+    return res.send("adfasdf");
+})
+
 const server = http.createServer(app);
 const socket = io(server, {
     cors: {
