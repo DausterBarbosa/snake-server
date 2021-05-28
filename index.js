@@ -8,10 +8,6 @@ const app = express();
 
 app.use(cors());
 
-app.get("/", (req, res) => {
-    return res.send("asdfasdf");
-})
-
 const server = http.createServer(app);
 const socket = io(server, {
     cors: {
@@ -34,8 +30,12 @@ socket.on("connection", connected => {
         connected.broadcast.emit("enemyposition", position)
     });
 
-    connected.on("comidacapturada", (position) => {
+    connected.on("comidacapturada", () => {
         socket.emit("generateFood", generateFood());
+    });
+
+    connected.on("enemypoint", () => {
+        connected.broadcast.emit("enemypoint");
     });
 });
 
