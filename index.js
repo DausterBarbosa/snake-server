@@ -37,6 +37,14 @@ socket.on("connection", connected => {
     connected.on("enemypoint", () => {
         connected.broadcast.emit("enemypoint");
     });
+
+    connected.on("lostgame", () => {
+        connected.broadcast.emit("winnergame");
+    });
+
+    connected.on("winnergame", () => {
+        connected.broadcast.emit("lostgame");
+    });
 });
 
 server.listen(process.env.PORT || 3000);
