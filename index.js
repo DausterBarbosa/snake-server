@@ -20,31 +20,22 @@ const socket = io(server, {
     }
 });
 
-users = 0;
-
-socket.on("connection", conected => {
-    users++;
-
-    if(users == 1){
-        socket.emit("aguardandooponente", {
-            status: true,
-        });
+function generateFood(){
+    return {
+        x: Math.floor(Math.random() * 15 + 1) * 32,
+        y: Math.floor(Math.random() * 15 + 1) * 32,
     }
-    else {
-        conected.broadcast.emit("aguardandooponente", {
-            status: false,
-        });
-    }
+}
 
-    conected.on("disconnect", () => {
-        conected.broadcast.emit("aguardandooponente", {
-            status: true,
-        });
-        users--;
+socket.on("connection", connected => {
+    socket.emit("generateFood", generateFood());
+
+    connected.on("position", (position) => {
+        connected.broadcast.emit("enemyposition", position)
     });
 
-    conected.on("position", position => {
-        conected.broadcast.emit("enemyposition", position);
+    connected.on("comidacapturada", (position) => {
+        socket.emit("generateFood", generateFood());
     });
 });
 
