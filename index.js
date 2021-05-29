@@ -23,7 +23,20 @@ function generateFood(){
     }
 }
 
+var players = 0;
+
 socket.on("connection", connected => {
+    players++;
+
+    connected.on("disconnect", () => {
+        players--;
+        connected.broadcast.emit("restartgame");
+    });
+
+    if(players == 2){
+        socket.emit("startgame");
+    }
+
     socket.emit("generateFood", generateFood());
 
     connected.on("position", (position) => {
